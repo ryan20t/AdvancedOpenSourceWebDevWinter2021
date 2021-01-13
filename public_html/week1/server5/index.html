@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NPM Example File WebSocket</title>
+</head>
+<body>
+    <input type="text" name="message">
+    <button>Send</button>
+    <div class="chatlog">Chat Log</div>
+    <script>
+        var ws = new WebSocket('ws://localhost:3000', 'echo-protocol'),
+        chatlog = document.querySelector('.chatlog'),
+        message = document.querySelector('input[name="message"]');
+
+        //add an event listener to button
+        document.querySelector('button').addEventListener('click', sendMessage)
+
+        function sendMessage(){
+            ws.send(message.value)
+        }
+
+        ws.addEventListener('open', function(){
+            chatlog.insertAdjacentHTML('beforeend', '<br>connection established')
+        })
+
+        ws.addEventListener('message', function(e){
+            var msg = e.data
+            chatlog.insertAdjacentHTML('beforeend', '<br>' + msg)
+        })
+    </script>
+</body>
+</html>

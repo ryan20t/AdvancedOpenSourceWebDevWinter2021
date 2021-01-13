@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inner HTML</title>
+</head>
+<body>
+    <div>TODO write content</div>
+    <script>
+        let div = document.querySelector('div')
+        let htmlStr = ''
+        htmlStr += '<p>Earth</p>'
+        htmlStr += '<p>Fire</p>'
+        htmlStr += '<p>Water</p>'
+
+        div.innerHTML += htmlStr
+        document.body.innerHTML += '<p>Water</p>'
+
+        let htmlcontents = div.innerHTML
+        console.log(htmlcontents)
+    </script>
+</body>
+</html>

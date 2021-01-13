@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JSON Loop</title>
+</head>
+<body>
+    <div>View in Dev Console</div>
+    <script>
+        var arr = [
+            {'doors':3, 'rooms':5},
+            {'doors':4, 'rooms':7},
+            {'doors':7, 'rooms':9}
+        ]
+
+        for(let index in arr){
+            console.log(`Home ${index} has ${arr[index].doors} doors and ${arr[index].rooms} rooms.`)
+        }
+    </script>
+</body>
+</html>
