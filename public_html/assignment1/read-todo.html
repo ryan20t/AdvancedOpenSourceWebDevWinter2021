@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo Contents</title>
+</head>
+<body>
+
+    <div>Todo Contents</div>
+
+    <script>
+        
+    </script>
+
+    <table style="border: 1px solid black;" id="table">
+        <tr>
+            <th style="border: 1px solid black;">User ID</th>
+            <th style="border: 1px solid black;">Task ID</th>
+            <th style="border: 1px solid black;">Task:</th>
+            <th style="border: 1px solid black;">Completed?</th>
+        </tr>
+
+        
+
+    </table>
+
+    <script>
+        var data = document.getElementById('table')
+        var tempStr = ""
+        let myRequest = 'todo.json'
+        fetch(myRequest)
+        .then(function(response){
+            return response.json()
+        })
+        .then(function(json){
+            for(let i in json){
+            tempStr = "<tr>"
+            tempStr += "<td style='border: 1px solid black;'>" + json[i].userId + "</td>"
+            tempStr += "<td style='border: 1px solid black;'>" + json[i].id + "</td>"
+            tempStr += "<td style='border: 1px solid black;'>" + json[i].title + "</td>"
+            tempStr += "<td style='border: 1px solid black;'>" + json[i].completed + "</td>"
+            tempStr+= "</tr>"
+            data.innerHTML += tempStr
+            }
+            console.log(json)
+        })  
+    </script>
+
+</body>
+</html>
