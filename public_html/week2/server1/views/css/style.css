@@ -1,0 +1,8 @@
+html,body{
+    background-color: bisque;
+    display:flex;
+    justify-content: center;
+}
+#container{
+    width:800px;
+}
