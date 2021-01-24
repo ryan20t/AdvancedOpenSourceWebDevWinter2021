@@ -1,0 +1,58 @@
+Some of the commands used in class:
+
+NODE RELATED:
+To start a server running (in the directory of the js file):
+:node (filename.js)
+
+To stop it from running:
+:ctrl+c
+
+NODE PACKAGE MANAGER INSTRUCTIONS:
+To install:
+:npm install <module-name> --save
+
+To uninstall:
+:npm uninstall <module-name> --save
+
+To see all globally installed packages:
+:npm -g ls --depth=0
+
+NODEMON RELATED:
+Nodemon is a package that allows you to run an application and update changes live rather than have to constantly stop and start the server from running
+
+To install:
+:npm install -g nodemon
+
+To run:
+:nodemon (filename.js)
+
+EXPRESS RELATED:
+To install:
+:npm install express --save (can be installed globally with -g)
+
+To install Express Generator:
+:npm install express-generator -g (global install)
+
+Help:
+:express -h
+
+To generate a template:
+:express <view-engine> <destination-directory> (destination directory created in current working directory)
+:express --view=hbs myapp (view engine = handlebars, directory = myapp) (view = pug is another option)
+
+note: This will not work immediately. Actions required:
+1) cd to the directory you specified in the last command
+2) :npm install
+
+HANDLEBARS RELATED:
+To install:
+npm install hbs
+
+Handlebars Partials Notes:
+Within 'views' folder, create a directory 'partials'
+Within 'partials' create file named _filename.hbs (_ required)
+In app.js, below line 'var app = express()' add:
+    //set up route for partials folder
+    var hbs = require('hbs')
+    hbs.registerPartials(__dirname + "/views/partials")
+

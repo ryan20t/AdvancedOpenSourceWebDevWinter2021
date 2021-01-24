@@ -1,0 +1,60 @@
+<h1>{{title}}</h1>
+
+<div class="container">
+
+    <!-- Name -->
+    <div class="row">
+        <div class="col-2">
+            <b>Name: </b>
+        </div>
+        <div class="col">
+            <span id="nameSpan"></span>
+        </div>
+    </div>
+
+    <!-- Email -->
+    <div class="row">
+        <div class="col-2">
+            <b>Email: </b>
+        </div>
+        <div class="col">
+            <span id="emailSpan"></span>
+        </div>
+    </div>
+
+    <!-- Comments -->
+    <div class="row">
+        <div class="col-2">
+            <b>Comments: </b>
+        </div>
+        <div class="col">
+            <span id="commentsSpan"></span>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    function getParams() {
+    var idx = document.URL.indexOf('?');
+    var params = new Array();
+    if (idx != -1) {
+        var pairs = document.URL.substring(idx + 1, document.URL.length).split('&');
+        for (var i = 0; i < pairs.length; i++) {
+            nameVal = pairs[i].split('=');
+            params[nameVal[0]] = nameVal[1];
+        }
+    }
+    return params;
+    }
+
+    params = getParams();
+
+    name = unescape(params["name"]);
+    email = unescape(params["email"]);
+    comments = unescape(params["comments"]).toString();
+
+    document.getElementById('nameSpan').innerHTML += name.toString().replaceAll("+", " ")
+    document.getElementById('emailSpan').innerHTML += email
+    document.getElementById('commentsSpan').innerHTML += comments.toString().replaceAll("+", " ")
+</script>
