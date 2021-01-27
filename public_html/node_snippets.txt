@@ -56,3 +56,52 @@ In app.js, below line 'var app = express()' add:
     var hbs = require('hbs')
     hbs.registerPartials(__dirname + "/views/partials")
 
+MONGODB:
+Shell scripts go in:
+/usr/local/bin
+
+Create directory for DB data:
+:sudo mkdir -p /System/Volumes/Data/data/db
+
+Change ownership of that directory:
+:sudo chown -R `id -un` /System/Volumes/Data/data/db
+
+Run MongoDB:
+:sudo mongod --dbpath /System/Volumes/Data/data/db
+
+MongoDB Structure:
+MongoDB (Server)
+    --Databases
+        --Collections (Actual Databases)
+            Users
+            Indexes
+            Player Data
+
+Navigate to where the shell scripts are stored (/usr/local/bin)
+Run mongo:
+:mongo
+
+Brings you to a new comand prompt where you can run commands such as:
+>show dbs (shows DBs you have)
+>use testusers (switch to testusers DB even if it doesn't exist)
+
+Once in a DB:
+>db.createCollection('users') (creates a collection)
+>show collections
+
+CRUD
+Insert
+>db.users.insert({name:"Ryan"}) (Inserted like a JSON object - binary JSON)
+
+Find all
+>db.users.find() (retreives data) (_id value automatically assigned by MongoDB when you insert data)
+>db.users.find().pretty()
+
+Update
+>db.users.updateOne({'name':'Ryan'}, {$set:{age:35}})
+
+Remove one
+>db.users.remove({'name':'Dave'})
+
+Exit (mongo)
+>exit

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Favorite Foods</title>
+    <script>
+        function checkForm(){
+            if(document.getElementById('FoodEntry').value == ""){
+                event.preventDefault()
+                document.getElementById('err').innerHTML = "Please enter something<br />"
+            }
+        }
+    </script>
+</head>
+<body>
+    <div id="container">
+        <h1>Welcome. Enter your favorite food</h1>
+        <nav>
+            <a href="#">Enter Food</a>
+            <a href="foodlist.html">See Favorite Food</a>
+        </nav>
+        <br />
+        <form action="/saveFoodEntry" method="POST" onsubmit="checkForm()">
+            <span id="err" style="color:red"></span>
+            <label for="food">Enter your favorite food here</label>
+            <br />
+            <input type="text" name="food" id="FoodEntry">
+            <br /><br />
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+</body>
+</html>
