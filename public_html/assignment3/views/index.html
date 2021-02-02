@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <!-- CSS & Bootstrap -->
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Date Picker Stuff -->
+    <link href='https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/ui-lightness/jquery-ui.css' rel='stylesheet'>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js" ></script> 
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" ></script> 
+
+    <!-- Title -->
+    <title>New Employee Entry</title>
+
+    <!-- Form Validation -->
+    <script>
+        function checkForm(){
+            var validForm = true
+            //first name
+            if(document.getElementById('firstNameEntry').value == ""){
+                event.preventDefault()
+                document.getElementById('errFirstName').innerHTML = "Field required<br />"
+                validForm = false
+            }
+            //last name
+            if(document.getElementById('lastNameEntry').value == ""){
+                event.preventDefault()
+                document.getElementById('errLastName').innerHTML = "Field required<br />"
+                validForm = false
+            }
+            //job title
+            if(document.getElementById('jobTitleEntry').value == ""){
+                event.preventDefault()
+                document.getElementById('errJobTitle').innerHTML = "Field required<br />"
+                validForm = false
+            }
+            //salary
+            //var salary = document.getElementById('jobTitleEntry').value
+            if (validForm && Number(document.getElementById('salaryEntry').value) < 5000){ 
+                if(confirm("Salary seems a bit low, are you sure?")){
+                
+                }else{
+                    event.preventDefault()
+                }
+            }
+        }
+        function checkSalary(){
+            if (document.getElementById('jobTitleEntry').value == ""){
+                document.getElementById('salaryEntry').value="0.00"
+            }
+        }
+    </script>
+</head>
+
+<body>
+
+    <div id="container">
+        <!-- Nav -->
+        <nav>
+            <a href="#">New Employee Entry</a>
+            <a href="view.html">View Employees</a>
+        </nav>
+        <br />
+
+        <!-- Form -->
+        <h2>Please fill out form to create new Employee record:</h2>
+        <br />
+        <form action="/saveEmployee" method="POST" onsubmit="checkForm()">
+
+            <!-- First Name -->
+            <span id="errFirstName" style="color:red"></span>
+            <label for="firstName">First Name</label>
+            <br />
+            <input type="text" name="firstName" id="firstNameEntry">
+            <br />
+
+            <!-- Last Name -->
+            <span id="errLastName" style="color:red"></span>
+            <label for="lastName">Last Name</label>
+            <br />
+            <input type="text" name="lastName" id="lastNameEntry">
+            <br />
+
+            <!-- Department -->
+            <label for="department">Department</label>
+            <br />
+            <select class="form-select" aria-label="Default select example" name="department" id="departmentEntry">
+                <option selected value="Finance">Finance</option>
+                <option value="HR">HR</option>
+                <option value="IT">IT</option>
+            </select>
+
+            <!-- Start Date -->
+            <label for="startDate">Start Date</label>
+            <br />
+            <input class="form-control" id="startDateEntry" name="startDate" type="text" readonly="readonly" />
+
+                <!-- Datepicker Script -->
+                <script>
+                    $(document).ready(function() { 
+                        $(function(){ 
+                        $( "#startDateEntry" ).datepicker().datepicker('setDate', new Date())
+                        })
+                    }) 
+                </script>
+
+            <!-- Job Title -->
+            <span id="errJobTitle" style="color:red"></span>
+            <label for="jobTitle">Job Title</label>
+            <br />
+            <input type="text" name="jobTitle" id="jobTitleEntry">
+            <br />
+
+            <!-- Salary -->
+            <span id="errSalary" style="color:red"></span>
+            <label for="salary">Salary</label>
+            <br />
+            <span>$</span><input type="number" min="0" step=".01" name="salary" id="salaryEntry" value="0.00" onblur="checkSalary()" oninput="validity.valid||(value='');">
+            <br />
+
+            <!-- Submit Button -->
+            <br />
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+
+</body>
+</html>

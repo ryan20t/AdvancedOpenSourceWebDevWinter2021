@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    
+    <!-- CSS & Bootstrap -->
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Date Picker Stuff -->
+    <link href='https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/ui-lightness/jquery-ui.css' rel='stylesheet'>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js" ></script> 
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" ></script> 
+
+    <!-- Title -->
+    <title>View Employees</title>
+</head>
+<body>
+
+    <div id="container">
+        <!-- Nav -->
+        <nav>
+            <a href="index.html">New Employee Entry</a>
+            <a href="#">View Employees</a>
+        </nav>
+        <br />
+
+        <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">First</th>
+                <th scope="col">Last</th>
+                <th scope="col">Department</th>
+                <th scope="col">Start Date</th>
+                <th scope="col">Job Title</th>
+                <th scope="col">Salary</th>
+              </tr>
+            </thead>
+            <tbody id="empTableBody">
+
+            </tbody>
+        </table>
+
+        <script>
+            fetch('/getData').then(function(employees){
+                employees.json().then(function(allEmployees){
+                    //counter for numbering
+                    var counter = 1
+                    for(let employee of allEmployees.employee){
+                        
+                        var row = document.createElement('tr')
+                        row.innerHTML += "<td>" + counter + "</td>"
+                        row.innerHTML += "<td>" + employee.firstName + "</td>"
+                        row.innerHTML += "<td>" + employee.lastName + "</td>"
+                        row.innerHTML += "<td>" + employee.department + "</td>"
+                        row.innerHTML += "<td>" + employee.startDate + "</td>"
+                        row.innerHTML += "<td>" + employee.jobTitle + "</td>"
+                        row.innerHTML += "<td>" + employee.salary + "</td>"
+
+                        //increment counter
+                        counter++
+
+                        //td element for form/button
+                        var buttonData = document.createElement('td')
+
+                        //form for submit
+                        var form = document.createElement('form')
+                        form.action = "/redirectToDelete"
+                        form.method = "POST"
+
+                        //Add hidden input for ID value
+                        var idInput = document.createElement('input')
+                        idInput.type = "hidden"
+                        idInput.name = "_id"
+                        idInput.value = employee._id
+
+                        //Add modify buttons to the entry
+                        //var modifyBtn = document.createElement('button')
+                        //modifyBtn.innerText = 'Modify'
+                        //modifyBtn.type = 'submit'
+
+                        //Add delete buttons to the entry
+                        var deleteBtn = document.createElement('button')
+                        deleteBtn.innerText = 'Delete'
+                        deleteBtn.type = 'submit'
+                        
+                        buttonData.appendChild(form)
+                        form.appendChild(idInput)
+                        form.appendChild(deleteBtn)
+                        row.appendChild(buttonData)
+                        document.getElementById('empTableBody').appendChild(row)
+                    }
+                })
+            })
+        </script>
+
+    </div>
+    
+</body>
+</html>

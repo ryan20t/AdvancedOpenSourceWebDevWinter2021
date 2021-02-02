@@ -11,13 +11,16 @@ app.use(express.json())
 
 //Connect to MongoDB database using mongoose
 //db name = favoriteFood
-mongoose.connect('mongodb://localhost:27017/favoriteFood',{
-    useNewUrlParser:true
-}).then(function(){
-    console.log("Connected to database")
-}).catch(function(err){
-    console.log(err)
-})
+// mongoose.connect('mongodb://localhost:27017/favoriteFood',{
+//     useNewUrlParser:true
+// }).then(function(){
+//     console.log("Connected to database")
+// }).catch(function(err){
+//     console.log(err)
+// })
+
+//Route for MongoDB connection (from route)
+app.use('/connect', require('./routes/connect'))
 
 //Load in Database Templates or Schema (models)
 require('./models/Food')

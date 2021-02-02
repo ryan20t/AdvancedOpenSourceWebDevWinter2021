@@ -17,6 +17,9 @@ To uninstall:
 To see all globally installed packages:
 :npm -g ls --depth=0
 
+To create package.json:
+:npm init (-y argument auto-answers prompts)
+
 NODEMON RELATED:
 Nodemon is a package that allows you to run an application and update changes live rather than have to constantly stop and start the server from running
 
