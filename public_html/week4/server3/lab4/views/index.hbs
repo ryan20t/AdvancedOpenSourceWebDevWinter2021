@@ -1,0 +1,23 @@
+<h1>{{title}}</h1>
+<p>Welcome to {{title}}</p>
+
+
+
+<form action="/grid" method="POST">
+    <select name="gridDimensions" id="gridDimensions">
+
+    </select>
+    <br />
+    <input type="submit" value="Build Grid">
+</form>
+
+<script>
+    var gridSizes = [3, 4, 5, 10, 20]
+    var sel = document.getElementById('gridDimensions')
+    for (let i = 0; i < gridSizes.length; i++){
+        var option = document.createElement('option')
+        option.value = gridSizes[i]
+        option.innerHTML = gridSizes[i]
+        sel.appendChild(option)
+    }
+</script>
