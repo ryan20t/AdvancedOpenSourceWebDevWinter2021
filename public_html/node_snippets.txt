@@ -1,13 +1,27 @@
 Some of the commands used in class:
 
-NODE RELATED:
+**********************************************************
+**********************************************************
+*****                                                *****
+*****                     NODE                       *****
+*****                                                *****
+**********************************************************
+**********************************************************
+
 To start a server running (in the directory of the js file):
 :node (filename.js)
 
 To stop it from running:
 :ctrl+c
 
-NODE PACKAGE MANAGER INSTRUCTIONS:
+**********************************************************
+**********************************************************
+*****                                                *****
+*****              NODE PACKAGE MANAGER              *****
+*****                                                *****
+**********************************************************
+**********************************************************
+
 To install:
 :npm install <module-name> --save
 
@@ -20,7 +34,14 @@ To see all globally installed packages:
 To create package.json:
 :npm init (-y argument auto-answers prompts)
 
-NODEMON RELATED:
+**********************************************************
+**********************************************************
+*****                                                *****
+*****                   NODEMON                      *****
+*****                                                *****
+**********************************************************
+**********************************************************
+
 Nodemon is a package that allows you to run an application and update changes live rather than have to constantly stop and start the server from running
 
 To install:
@@ -29,7 +50,13 @@ To install:
 To run:
 :nodemon (filename.js)
 
-EXPRESS RELATED:
+**********************************************************
+**********************************************************
+*****                                                *****
+*****                   EXPRESS                      *****
+*****                                                *****
+**********************************************************
+**********************************************************
 To install:
 :npm install express --save (can be installed globally with -g)
 
@@ -40,14 +67,24 @@ Help:
 :express -h
 
 To generate a template:
+
+:npm install -g express-generator (global, done once)
+:npm install -y (run at root directory of project)
+
 :express <view-engine> <destination-directory> (destination directory created in current working directory)
 :express --view=hbs myapp (view engine = handlebars, directory = myapp) (view = pug is another option)
 
 note: This will not work immediately. Actions required:
-1) cd to the directory you specified in the last command
+1) cd to <destination-directory> specified in the last command
 2) :npm install
 
-HANDLEBARS RELATED:
+**********************************************************
+**********************************************************
+*****                                                *****
+*****                  HANDLEBARS                    *****
+*****                                                *****
+**********************************************************
+**********************************************************
 To install:
 npm install hbs
 
@@ -59,7 +96,13 @@ In app.js, below line 'var app = express()' add:
     var hbs = require('hbs')
     hbs.registerPartials(__dirname + "/views/partials")
 
-MONGODB:
+**********************************************************
+**********************************************************
+*****                                                *****
+*****                   MongoDB                      *****
+*****                                                *****
+**********************************************************
+**********************************************************
 Shell scripts go in:
 /usr/local/bin
 

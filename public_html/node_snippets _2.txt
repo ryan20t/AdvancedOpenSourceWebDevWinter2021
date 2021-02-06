@@ -1,8 +1,0 @@
-Week 4 Notes
-Steps to generate an express template
-
-:npm install
-:npm install -g express-generator
-:express --view=hbs (appname) example: (lab4)
-:cd (appname)
-:npm install

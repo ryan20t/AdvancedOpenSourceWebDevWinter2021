@@ -1,0 +1,184 @@
+Javascript CONCEPTS TO LEARN:
+ES6
+Promises
+Asynch
+Await
+Callbacks
+
+**********************************************************
+**********************************************************
+*****                                                *****
+*****              NODE ARCHITECTURE                 *****
+*****                                                *****
+**********************************************************
+**********************************************************
+
+In a browser, you have the 'window' or 'document' environment object. This does not exist in node, and instead
+we have other objects:
+
+fs.readFile() (filesystem)
+http.createServer() (listen on a given port, etc.)
+
+^ can't be done inside of a browser, but can in node due to the additional modules. Learning the built in Node modules is a really good idea.
+
+**********************************************************
+**********************************************************
+*****                                                *****
+*****               ASYNC BEHAVIOR                   *****
+*****                                                *****
+**********************************************************
+**********************************************************
+
+Node is built on non-blocking, asynchronous architecture. A single thread can handle multiple requests. Things good to understand:
+-Promises (javascript)
+-Await (javascript)
+-Asynch (javascript)
+-Callbacks (javascript)
+
+Node is good for I/O based apps with lots of file access, not good for big CPU intensive apps like video encoding
+
+**********************************************************
+**********************************************************
+*****                                                *****
+*****                  NODE CORE                     *****
+*****                                                *****
+**********************************************************
+**********************************************************
+
+Global functions (standard javascript):
+console.log()
+setTimeout()
+clearTimeout()
+setInterval()
+clearInterval()
+
+*In a browser these all belong to the window object
+window.console.log()
+
+In NODE they are accessed via the global object
+global.console.log()
+
+*****     MODULES     *****
+
+Every Node app has at least one module that is the main module, app.js in most cases (or index.js).
+
+Other modules can be created and then exported to the global scope rather than declaring global functions that can cause scope/naming issues
+
+Creating and exporting a module:
+1) Create js file with variables or code
+2) Export variables or modules with module.exports... *
+3) In another module such as app.js, access via require('path to module') **
+
+*example export as object (logger.js)
+function log(message){
+    console.log(message)
+}
+module.exports.log = log
+
+const logger = require('./logger')
+logger.log('text')
+
+*example export as function (logger.js)
+function log(message){
+    console.log(message)
+}
+module.exports = log
+
+const log = require('./logger')
+log('text')
+
+**best practice is to use CONST to load a module rather than var so we do not accidentally overwrite the value of the module
+
+*****     MODULE WRAPPERS     *****
+Module code is not executed directly, it's wrapped in a function that requires several arguments, the 'module wrapper function'
+
+**********************************************************
+**********************************************************
+*****                                                *****
+*****              BUILT IN MODULES                  *****
+*****                                                *****
+**********************************************************
+**********************************************************
+
+File System (work with File System)
+HTTP (create Web Server to listen for requests)
+OS (work with OS)
+Path (utility functions for paths)
+Process (info about current process)
+QueryStrings (useful for building HTTP services)
+Stream (work with data streams)
+
+**********************************************************
+**********************************************************
+*****                                                *****
+*****                   EVENTS                       *****
+*****                                                *****
+**********************************************************
+**********************************************************
+
+Best Practice - create a module that is a class which extends the EventEmitter class.
+
+*****     Example Class     *****
+
+const EventEmitter = require('events')
+
+class Logger extends EventEmitter {
+
+    log(message){
+        console.log(message)
+        //Raise an event
+        this.emit('messageLogged', {data: message})
+    }
+}
+module.exports = Logger;
+
+*****     Usage in app.js     *****
+
+//require class
+const Logger = require('./logger')
+//instantiate class as object for use
+const logger = new Logger()
+
+//create an event listener
+//convention states to use arg, or e, or eventArg as callback argument
+logger.on('messageLogged', (arg) =>{ 
+    console.log('Listener called', arg)
+})
+
+//trigger the event
+logger.log('message')
+
+**********************************************************
+**********************************************************
+*****                                                *****
+*****                HTTP Module                     *****
+*****                                                *****
+**********************************************************
+**********************************************************
+
+const http = require('http')
+Can create a server, and within that can use callback with req and res arguments to route based on requested URLs, although this is much cleaner with express
+
+const server = http.createServer((req, res) => {
+    if (req.url === '/'){
+        res.write('Hello World')
+        res.end()
+    }
+
+    if (req.url === '/api/courses'){
+        res.write(JSON.stringify([1, 2, 3]))
+        res.end()
+    }
+})
+
+The server is also an instance of the event emitter so you can use it to create event listeners or to emit events
+
+This would respond when a browser connects to the server:
+server.on('connection', (socket) => {
+    //console.log('New connection')
+})
+
+This activates the server (callback not required):
+server.listen(3000, () => {
+    console.log('Listening on port 3000')
+})

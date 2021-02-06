@@ -37,6 +37,8 @@
                 <th scope="col">Start Date</th>
                 <th scope="col">Job Title</th>
                 <th scope="col">Salary</th>
+                <th></th>
+                <th></th>
               </tr>
             </thead>
             <tbody id="empTableBody">
@@ -63,34 +65,32 @@
                         //increment counter
                         counter++
 
+                        //DELETE BUTTON
                         //td element for form/button
-                        var buttonData = document.createElement('td')
-
+                        var deleteButtonData = document.createElement('td')
                         //form for submit
-                        var form = document.createElement('form')
-                        form.action = "/redirectToDelete"
-                        form.method = "POST"
-
+                        var deleteForm = document.createElement('form')
+                        deleteForm.action = "/redirectToDelete"
+                        deleteForm.method = "POST"
                         //Add hidden input for ID value
                         var idInput = document.createElement('input')
                         idInput.type = "hidden"
                         idInput.name = "_id"
                         idInput.value = employee._id
+                        //Add delete buttons to the entry
+                        var deleteBtn = document.createElement('button')
+                        deleteBtn.innerText = 'Delete'
+                        deleteBtn.type = 'submit'
+                        //Append Delete Button
+                        deleteButtonData.appendChild(deleteForm)
+                        deleteForm.appendChild(idInput)
+                        deleteForm.appendChild(deleteBtn)
+                        row.appendChild(deleteButtonData)
 
                         //Add modify buttons to the entry
                         //var modifyBtn = document.createElement('button')
                         //modifyBtn.innerText = 'Modify'
                         //modifyBtn.type = 'submit'
-
-                        //Add delete buttons to the entry
-                        var deleteBtn = document.createElement('button')
-                        deleteBtn.innerText = 'Delete'
-                        deleteBtn.type = 'submit'
-                        
-                        buttonData.appendChild(form)
-                        form.appendChild(idInput)
-                        form.appendChild(deleteBtn)
-                        row.appendChild(buttonData)
                         document.getElementById('empTableBody').appendChild(row)
                     }
                 })

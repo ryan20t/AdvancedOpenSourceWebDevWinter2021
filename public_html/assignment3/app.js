@@ -45,6 +45,7 @@ app.get('/getData', function(req, res){
 app.post('/redirectToDelete', function(req, res){
     console.log(req.body)
     res.redirect('delete.html?id=' + req.body._id)
+    //res.send('delete.html')
 })
 
 app.get('/deleteEmployee', function(req, res){

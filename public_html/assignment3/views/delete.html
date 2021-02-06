@@ -29,8 +29,11 @@
     </div>
 
     <script>
+        var container = document.getElementById('container')
         var id = getParameterByName('id')
-               
+        var par = document.createElement('p')
+        par.innerHTML += id.toString()
+        container.appendChild(par)
         
         //gets query string parameters
         function getParameterByName(name, url = window.location.href) {
@@ -41,6 +44,7 @@
             if (!results[2]) return '';
             return decodeURIComponent(results[2].replace(/\+/g, ' '));
         }
+
     </script>
     
 

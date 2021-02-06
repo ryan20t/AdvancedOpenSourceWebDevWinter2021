@@ -1,0 +1,59 @@
+**********************************************************
+**********************************************************
+*****                                                *****
+*****           RESTFUL APIs w EXPRESS               *****
+*****                                                *****
+**********************************************************
+**********************************************************
+
+expressjs.com for documentation and research
+
+HTTP Methods:
+
+GET - retreive data
+POST - create data
+PUT - update data
+DELETE - remove data
+
+ex: blah.com/api/customers
+
+To get a list of all customers: GET
+When we send a GET request, we get an array of customer objects back
+
+blah.com/api/customers/1 (GET request to return that customer)
+
+To update a customer, PUT request with url:
+blah.com/api/customers/1
+customer object should be in body of the request
+
+To delete that customer, same url with a DELETE request:
+blah.com/api/customers/1
+Do not need to include the customer object because the ID is sufficient
+
+To create a customer, POST request, url without id:
+blah.com/api/customers
+POSTs a new customer to that URL, REQ body should contain customer object
+
+To get started:
+npm init -y
+npm i express --save
+
+**********************************************************
+**********************************************************
+*****                                                *****
+*****               ROUTE PARAMETERS                 *****
+*****                                                *****
+**********************************************************
+**********************************************************
+
+app.get('/api/posts/:year/:month', (req, res) => {
+    res.send(req.params)
+})
+
+Above will return key value pairs of the parameters entered into the URL
+
+** Use these for anything that is required, and use Query String parameters for anything that is optional
+
+To get each:
+req.params(.nameOfParam)
+req.query(.nameOfQueryStringParam)
