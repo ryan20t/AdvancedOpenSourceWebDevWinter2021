@@ -72,6 +72,7 @@ To generate a template:
 :npm install -y (run at root directory of project)
 
 :express <view-engine> <destination-directory> (destination directory created in current working directory)
+*if you don't specify a directory it will install in the current (good to know)
 :express --view=hbs myapp (view engine = handlebars, directory = myapp) (view = pug is another option)
 
 note: This will not work immediately. Actions required:
@@ -151,3 +152,25 @@ Remove one
 
 Exit (mongo)
 >exit
+
+**********************************************************
+**********************************************************
+*****                                                *****
+*****              Week 5 - RESTFul API              *****
+*****                                                *****
+**********************************************************
+**********************************************************
+
+For assignment:
+GET
+GET by id
+SORT
+SEARCH
+
+We started by building the queryDemo page in week5
+Then we modified app.js, then added files into /routes/
+We filled out the schema / model
+Then we added in the controller code
+We then set up routes
+Then set up the db.js file which we can reuse for future mongoose connections
+Last thing is to connect the HTML client page we made to make the calls to the routes

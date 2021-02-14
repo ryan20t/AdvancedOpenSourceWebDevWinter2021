@@ -1,0 +1,17 @@
+**********************************************************
+**********************************************************
+*****                                                *****
+*****                  HANDLEBARS                    *****
+*****                                                *****
+**********************************************************
+**********************************************************
+
+npm install hbs
+const hbs = require('hbs')
+app.engine('hbs', hbs({extname: 'hbs', defaultLayout: 'layout', layoutsDir: __dirname + '/views/'}))
+app.set('view engine', 'hbs')
+
+On HBS page (HTML view)
+{{ title }} - use two braces sets to output TEXT
+{{{ body }}} - use three braces sets to output HTML
+

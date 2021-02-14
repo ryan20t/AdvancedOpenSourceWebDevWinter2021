@@ -1,0 +1,109 @@
+<!-- Form Validation -->
+<script>
+    function checkForm(){
+        var validForm = true
+        //first name
+        if(document.getElementById('firstNameEntry').value == ""){
+            event.preventDefault()
+            document.getElementById('errFirstName').innerHTML = "Field required<br />"
+            validForm = false
+        }
+        //last name
+        if(document.getElementById('lastNameEntry').value == ""){
+            event.preventDefault()
+            document.getElementById('errLastName').innerHTML = "Field required<br />"
+            validForm = false
+        }
+        //job title
+        if(document.getElementById('jobTitleEntry').value == ""){
+            event.preventDefault()
+            document.getElementById('errJobTitle').innerHTML = "Field required<br />"
+            validForm = false
+        }
+        //salary
+        //var salary = document.getElementById('jobTitleEntry').value
+        if (validForm && Number(document.getElementById('salaryEntry').value) < 5000){ 
+            if(confirm("Salary seems a bit low, are you sure?")){
+            
+            }else{
+                event.preventDefault()
+            }
+        }
+    }
+    function checkSalary(){
+        if (document.getElementById('jobTitleEntry').value == ""){
+            document.getElementById('salaryEntry').value="0.00"
+        }
+    }
+</script>
+
+<!-- CONTENT -->
+<div id="container">
+        <!-- Nav -->
+        <nav>
+            <a href="#">New Employee Entry</a>
+            <a href="view.hbs">View Employees</a>
+        </nav>
+        <br />
+
+        <!-- Form -->
+        <h2>Please fill out form to create new Employee record:</h2>
+        <br />
+        <form action="/saveEmployee" method="POST" onsubmit="checkForm()">
+
+            <!-- First Name -->
+            <span id="errFirstName" style="color:red"></span>
+            <label for="firstName">First Name</label>
+            <br />
+            <input type="text" name="firstName" id="firstNameEntry">
+            <br />
+
+            <!-- Last Name -->
+            <span id="errLastName" style="color:red"></span>
+            <label for="lastName">Last Name</label>
+            <br />
+            <input type="text" name="lastName" id="lastNameEntry">
+            <br />
+
+            <!-- Department -->
+            <label for="department">Department</label>
+            <br />
+            <select class="form-select" aria-label="Default select example" name="department" id="departmentEntry">
+                <option selected value="Finance">Finance</option>
+                <option value="HR">HR</option>
+                <option value="IT">IT</option>
+            </select>
+
+            <!-- Start Date -->
+            <label for="startDate">Start Date</label>
+            <br />
+            <input class="form-control" id="startDateEntry" name="startDate" type="text" readonly="readonly" />
+
+                <!-- Datepicker Script -->
+                <script>
+                    $(document).ready(function() { 
+                        $(function(){ 
+                        $( "#startDateEntry" ).datepicker().datepicker('setDate', new Date())
+                        })
+                    }) 
+                </script>
+
+            <!-- Job Title -->
+            <span id="errJobTitle" style="color:red"></span>
+            <label for="jobTitle">Job Title</label>
+            <br />
+            <input type="text" name="jobTitle" id="jobTitleEntry">
+            <br />
+
+            <!-- Salary -->
+            <span id="errSalary" style="color:red"></span>
+            <label for="salary">Salary</label>
+            <br />
+            <span>$</span><input type="number" min="0" step=".01" name="salary" id="salaryEntry" value="0.00" onblur="checkSalary()" oninput="validity.valid||(value='');">
+            <br />
+
+            <!-- Submit Button -->
+            <br />
+            <button type="submit">Submit</button>
+        </form>
+    </div>

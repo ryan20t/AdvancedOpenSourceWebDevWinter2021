@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Query Builder</title>
+    <style>
+        textarea{
+            width:500px;
+            height:100px;
+        }
+        textarea[name="results"]{
+            height:300px;
+        }
+        body{
+            padding-left: 20px;
+        }
+    </style>
+    <!-- CSS & Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Date Picker Stuff -->
+    <link href='https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/ui-lightness/jquery-ui.css' rel='stylesheet'>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js" ></script> 
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" ></script> 
+</head>
+<body>
+    <br>
+    <h1>Employee DB</h1>
+
+    Verb/HTTP Method:
+    <br>
+    <select name="verb">
+        <option value="GET">GET</option>
+        <option value="POST">POST</option>
+        <option value="PUT">PUT</option>
+        <option value="DELETE">DELETE</option>
+    </select>
+    <br>
+    <br>
+    Resource Query:
+    <br>
+    <input name="resource" value="employees/" style="width: 350px;">
+    <br>
+    <br>
+
+    Data (optional):
+    <br>
+    <!-- First Name -->
+    <span id="errFirstName" style="color:red"></span>
+    <label for="firstName">First Name</label>
+    <br />
+    <input type="text" name="firstName" id="firstNameEntry">
+    <br />
+
+    <!-- Last Name -->
+    <span id="errLastName" style="color:red"></span>
+    <label for="lastName">Last Name</label>
+    <br />
+    <input type="text" name="lastName" id="lastNameEntry">
+    <br />
+
+    <!-- Department -->
+    <label for="department">Department</label>
+    <br />
+    <select class="form-select" aria-label="Default select example" name="department" id="departmentEntry" style="width: 175px;">
+        <option selected value="Finance">Finance</option>
+        <option value="HR">HR</option>
+        <option value="IT">IT</option>
+    </select>
+
+    <!-- Start Date -->
+    <label for="startDate">Start Date</label>
+    <br />
+    <input class="form-control" id="startDateEntry" name="startDate" type="text" readonly="readonly" style="width: 175px;"/>
+
+        <!-- Datepicker Script -->
+        <script>
+            $(document).ready(function() { 
+                $(function(){ 
+                $( "#startDateEntry" ).datepicker().datepicker('setDate', new Date())
+                })
+            }) 
+        </script>
+
+    <!-- Job Title -->
+    <span id="errJobTitle" style="color:red"></span>
+    <label for="jobTitle">Job Title</label>
+    <br />
+    <input type="text" name="jobTitle" id="jobTitleEntry">
+    <br />
+
+    <!-- Salary -->
+    <span id="errSalary" style="color:red"></span>
+    <label for="salary">Salary</label>
+    <br />
+    <span>$</span><input type="number" min="0" step=".01" name="salary" id="salaryEntry" value="0.00" onblur="checkSalary()" oninput="validity.valid||(value='');">
+    <br>
+    <br>
+
+    <button>Make Request</button>
+
+    <h3>Results</h3>
+    <input name="query" readonly size="70">
+    <br>
+    <textarea name="results" readonly></textarea>
+
+    <!-- Script to connect this page to the calls -->
+    <script>
+        //event listener for button
+        var callBtn = document.querySelector('button')
+        callBtn.addEventListener('click', makeCall)
+
+        function makeCall(){
+            //collect data
+            let data = {
+                'firstName': document.querySelector('input[name="firstName"]').value,
+                'lastName': document.querySelector('input[name="lastName"]').value,
+                'department': document.querySelector('select[name="department"]').value,
+                'startDate': document.querySelector('input[name="startDate"]').value,
+                'jobTitle': document.querySelector('input[name="jobTitle"]').value,
+                'salary': document.querySelector('input[name="salary"]').value
+            }
+            console.log(data.department)
+            //get verb (action)
+            let verbField = document.querySelector('select[name="verb"]')
+            let verb = verbField.options[verbField.selectedIndex].value
+            //get resource
+            let resource = document.querySelector('input[name="resource"]').value
+            //get results
+            let results = document.querySelector('textarea[name="results"]')
+            //localhost
+            let url = `http://localhost:3000/api/v1/${resource}`
+
+            //populate results
+            document.querySelector('input[name="query"]').value = url
+
+            //set up headers
+            let myHeaders = new Headers()
+            myHeaders.set('Content-Type', 'application/json')
+
+            //initialization variable for request
+            let myInit = {
+                method: verb,
+                headers: myHeaders,
+                mode: 'cors',
+                cache: "default"
+            }
+
+            //check our routes
+            if (['POST', 'PUT'].indexOf(verb) > -1){
+                myInit.body = JSON.stringify(data)
+            }
+
+            //create request
+            let myRequest = new Request(url, myInit)
+
+            //fetch request
+            fetch(myRequest).then((response) => {
+                let contentType = response.headers.get('content-type')
+                if (contentType && contentType.includes('application/json')){
+                    return response.text()
+                }
+                if (response.status === 204){
+                    return 'Delete'
+                }
+                throw new TypeError("Response is not JSON")
+            }).then((jsonText) => {
+                //set results field
+                results.value = jsonText
+            }).catch((err) => {
+                console.log(err)
+            })
+
+        }
+
+        function checkSalary(){
+            if (document.getElementById('jobTitleEntry').value == ""){
+                document.getElementById('salaryEntry').value="0.00"
+            }
+        }
+    </script>
+
+</body>
+</html>
