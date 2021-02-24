@@ -174,3 +174,16 @@ Then we added in the controller code
 We then set up routes
 Then set up the db.js file which we can reuse for future mongoose connections
 Last thing is to connect the HTML client page we made to make the calls to the routes
+
+
+**********************************************************
+**********************************************************
+*****                                                *****
+*****            Week 6 - Authentication             *****
+*****                                                *****
+**********************************************************
+**********************************************************
+
+Going to use two pieces of middleware to manage this:
+Bcrypt & Passport
+
