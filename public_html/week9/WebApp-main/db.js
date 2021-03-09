@@ -5,7 +5,7 @@ var dbURI = 'mongodb+srv://ryan:ryan123@cluster0.jsiit.mongodb.net/newUsers?retr
 
 
  if(process.env.NODE_ENV === 'production'){
-    dbURI = process.env.MONGOLAB_URI
+    dbURI = dbURI
  }
 
 mongoose.connect(dbURI,{
