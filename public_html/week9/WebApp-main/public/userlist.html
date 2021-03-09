@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User List</title>
+</head>
+<body>
+    <div id="container">
+        <h1>User List</h1>
+        <nav>
+            <a href="index.html">User Entry</a>
+        </nav>
+        <script>
+            fetch('/getData').then(function(users){
+                users.json().then(function(theusers){
+                console.log(theusers)
+                    for(let user of theusers.user){
+                        var element = document.createElement('p')
+                        element.innerHTML = user.name + "<br>" + user.email
+                        document.getElementById('container').appendChild(element)
+                    }
+                })
+            })
+        </script>
+    </div>
+</body>
+</html>
